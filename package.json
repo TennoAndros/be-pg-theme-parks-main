@@ -1,0 +1,29 @@
+{
+  "name": "be-pg-themeparks",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "pg-format": "^1.0.4"
+  },
+  "scripts": {
+    "test": "npm run setup-db && jest",
+    "setup-db": "psql -f ./db/theme-parks.sql",
+    "seed": "node db/run-seed.js",
+    "sql-playground": "psql -f ./db/playground.sql"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/northcoders/be-pg-themeparks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/northcoders/be-pg-themeparks/issues"
+  },
+  "homepage": "https://github.com/northcoders/be-pg-themeparks#readme",
+  "dependencies": {
+    "pg": "^8.10.0"
+  }
+}
