@@ -19,18 +19,22 @@ function seed() {
       return db.query("DROP TABLE IF EXISTS parks;");
     })
     .then(() => {
-      return createParks();
+      return createParks(); 
     })
     .then(() => {
       return createRides();
     })
     .then(() => {
-      return insertParks();
+      return insertParks(); 
     })
     .then(({ rows }) => {
       return insertRides(rides, rows);
     });
 }
+
+const ena = await insertParks();
+const duo = await createRides();
+
 
 function createParks() {
   /* Create your parks table in the query below */
