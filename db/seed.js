@@ -59,7 +59,27 @@ function insertParks() {
 }
 
 function prepareRidesData(ridesArr, parksArr) {
-  return [];
+  const copyRidesArr = ridesArr.map((ride) => {
+    return { ...ride };
+  });
+
+  copyRidesArr.forEach((ride) => {
+    const correctPark = parksArr.filter(
+      (park) => ride.park_name === park.park_name
+    );
+    ride.park_id = correctPark[0].park_id;
+    delete ride.park_name;
+  });
+
+  return copyRidesArr;
 }
 
-module.exports = { seed, prepareRidesData };
+function arrangeRidesData(ridesData) {
+  const rides = [];
+  ridesData.forEach((ride) => {
+    rides.push(Object.values(ride));
+  });
+  return rides;
+}
+
+module.exports = { seed, prepareRidesData, arrangeRidesData };
