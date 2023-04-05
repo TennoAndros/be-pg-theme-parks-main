@@ -36,6 +36,8 @@ const ena = await insertParks();
 const duo = await createRides();
 
 
+
+
 function createParks() {
   /* Create your parks table in the query below */
   return db.query(
