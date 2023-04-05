@@ -16,7 +16,7 @@ describe("prepareRidesData", () => {
   test("return an array", () => {
     expect(prepareRidesData(rides, parks)).toBeInstanceOf(Array);
   });
-  test("should first", () => {
+  test.only("should first", () => {
     expect(prepareRidesData(rides, parks)).toEqual([
       {
         ride_name: "Tidal Wave",

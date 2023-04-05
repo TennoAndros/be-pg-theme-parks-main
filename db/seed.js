@@ -26,6 +26,9 @@ function seed() {
     })
     .then(() => {
       return insertParks();
+    })
+    .then(({ rows }) => {
+      return insertRides(rides, rows);
     });
 }
 
@@ -62,7 +65,6 @@ function prepareRidesData(ridesArr, parksArr) {
   const copyRidesArr = ridesArr.map((ride) => {
     return { ...ride };
   });
-
   copyRidesArr.forEach((ride) => {
     const correctPark = parksArr.filter(
       (park) => ride.park_name === park.park_name
@@ -82,4 +84,13 @@ function arrangeRidesData(ridesData) {
   return rides;
 }
 
+function insertRides(rides, parksArrDataReturned) {
+  const preparedDataRides = prepareRidesData(rides, parksArrDataReturned);
+  const formatedDataRides = arrangeRidesData(preparedDataRides);
+  const query = format(
+    "INSERT INTO rides (ride_name, year_opened, votes, park_id) VALUES %L RETURNING * ;",
+    formatedDataRides
+  );
+  return db.query(query);
+}
 module.exports = { seed, prepareRidesData, arrangeRidesData };
