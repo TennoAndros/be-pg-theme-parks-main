@@ -6,17 +6,25 @@ exports.selectParks = () => {
   });
 };
 
-exports.updateParkById = (park) => {
+exports.updateParkById = (id, parkUpdates) => {
+  const { park_name, annual_attendance } = parkUpdates;
   return db
     .query(
-      "UPDATE parks SET park_name =$1, annual_attendance=$2, year_opened=$3 WHERE park_id=$4",
-      [park_name, annual_attendance, year_opened, park_id]
+      "UPDATE parks SET park_name = $1, annual_attendance = $2 WHERE park_id = $3 RETURNING *;",
+      [park_name, annual_attendance, id]
     )
-    .then((response) => response.rows);
+    .then(({ rows }) => {
+      return rows[0];
+    });
 };
 
-exports.removeParkById = () => {
+exports.removeParkById = (parkIdToBeDeleted) => {
   return db
-    .query("DELETE FROM parks WHERE park_id=$1", [park_id])
-    .then((response) => response.rows);
+    .query("DELETE FROM parks WHERE park_id=$1", [parkIdToBeDeleted])
+    .then(() => undefined);
 };
+
+/*
+updatedParkById(5, {park_name: "werewolf77"})
+
+*/

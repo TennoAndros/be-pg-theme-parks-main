@@ -19,24 +19,18 @@ function seed() {
       return db.query("DROP TABLE IF EXISTS parks;");
     })
     .then(() => {
-      return createParks(); 
+      return createParks();
     })
     .then(() => {
       return createRides();
     })
     .then(() => {
-      return insertParks(); 
+      return insertParks();
     })
     .then(({ rows }) => {
       return insertRides(rides, rows);
     });
 }
-
-const ena = await insertParks();
-const duo = await createRides();
-
-
-
 
 function createParks() {
   /* Create your parks table in the query below */
@@ -46,7 +40,7 @@ function createParks() {
 }
 function createRides() {
   return db.query(
-    "CREATE TABLE rides(ride_id SERIAL PRIMARY KEY, park_id INT REFERENCES parks(park_id), ride_name VARCHAR, year_opened INT, votes INT);"
+    "CREATE TABLE rides(ride_id SERIAL PRIMARY KEY, park_id INT REFERENCES parks(park_id) ON DELETE CASCADE, ride_name VARCHAR, year_opened INT, votes INT);"
   );
 }
 

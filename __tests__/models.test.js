@@ -54,7 +54,7 @@ xdescribe("9. selectRidesByParkId()", () => {
   });
 });
 
-xdescribe("10. updateParkById()", () => {
+describe("10. updateParkById()", () => {
   it("returns the updated park", () => {
     const parkUpdates = {
       park_name: "Chessington Earth of Experiences",
@@ -73,7 +73,10 @@ xdescribe("10. updateParkById()", () => {
       })
       .then(({ rows: [park] }) => {
         expect(park).toHaveProperty("annual_attendance", 0);
-        expect(park).toHaveProperty("name", "Chessington Earth of Experiences");
+        expect(park).toHaveProperty(
+          "park_name",
+          "Chessington Earth of Experiences"
+        );
       });
   });
   it("updates the database with the correct information", () => {
@@ -92,7 +95,7 @@ xdescribe("10. updateParkById()", () => {
   });
 });
 
-xdescribe("11. removeParkById()", () => {
+describe("11. removeParkById()", () => {
   test("should return undefined", () => {
     return removeParkById(2).then((response) => {
       expect(response).toBeUndefined();
